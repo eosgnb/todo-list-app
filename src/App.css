@@ -1,0 +1,112 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap');
+
+body {
+    background-color: #F6F0FF;
+    font-family: 'Lato', sans-serif;
+    color: #212529;
+}
+p {
+    margin-bottom: 0;
+}
+.icons {
+    margin-right: 6px;
+}
+.todo--details {
+    width: 1000px;
+}
+.custom-checkbox .form-check-input, .clickable {
+    border-radius: 2px;
+    cursor: pointer;
+    height: 30px;
+    width: 30px;
+    margin: 0;
+}
+.custom-checkbox .form-check-input {
+    background-color: #e2e6ea;
+    outline: none;
+    box-shadow: none;
+    border-color: #e2e6ea;
+}
+.custom-checkbox .form-check-input:checked,
+.custom-checkbox .form-check-input:active {
+    background-color: #5E1B89;
+    border: none;
+    outline: none;
+    box-shadow: none;
+    border-color: transparent;
+}
+.clickable {
+    background-color: #e2e6ea;
+    color: #5E1B89;
+}
+.task-name {
+    text-decoration: none;
+}
+.task-name.completed {
+    text-decoration: line-through;
+    color: #98A2AC;
+}
+.todo-item {
+    border-radius: 4px;
+    background-color: #FCFBFF;
+    cursor: pointer;
+}
+.todo-item.completed {
+    background-color: #e2e6ea;
+}
+.todo-item:hover {
+    background-color: #F8F5FA;
+}
+.banner {
+    background: linear-gradient(90deg, #5e1b89, #87219a, #ab279f, #bc2d8d, #cc3577, #dd3c5c, #ee4b44, #ff7f4d);
+    border-radius: 4px;
+    font-family: 'DM Sans', sans-serif;
+    border: none;
+}
+.text-logo {
+    font-weight: 500;
+}
+.custom-dropdown .dropdown-toggle,
+.more-options-dropdown .dropdown-toggle {
+    border: none;
+    background-color: transparent; 
+    color: #212529;
+}
+.custom-dropdown .dropdown-item:hover,
+.more-options-dropdown .dropdown-item:hover {
+    background-color: #5E1B89; 
+    color: #fff;
+}
+.custom-dropdown .btn:focus,
+.more-options-dropdown .btn:focus {
+    background-color: transparent;
+    box-shadow: none;
+    border-color: transparent;
+    border: none;
+    outline: none;
+}
+.more-options-dropdown .btn::after {
+    display: none;
+}
+.more-options-dropdown .btn,
+.more-options-dropdown .btn:focus {
+    border-color: transparent;
+}
+.more-options-dropdown .btn,
+.input-task .form-control,
+.input-task.btn {
+    border-radius: 4px;
+}
+.input-task .form-control:focus {
+    box-shadow: none;
+    border-color: #5E1B89;
+    outline: none;
+}
+.input-task .btn,
+.input-task .btn:focus {
+    background-color: #5E1B89;
+    border: none;
+}
+.input-task.btn:hover {
+    background-color: #9D71BC;
+}
