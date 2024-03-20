@@ -1,8 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Container, InputGroup, FormControl, Dropdown, DropdownButton, Stack, Button } from 'react-bootstrap';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faList, faCheckDouble, faEllipsis, faPlus } from '@fortawesome/free-solid-svg-icons';
-import { faTrashCan } from '@fortawesome/free-regular-svg-icons';
+import { FontAwesomeIcon } from '/@fortawesome/react-fontawesome';
+import { faList, faEllipsis, faPlus } from '/@fortawesome/free-solid-svg-icons';
 import ToDoItem from '../components/ToDoItem';
 import logo from '../assets/logo.png';
 

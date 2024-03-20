@@ -1,8 +1,8 @@
 import { useState, useRef, useEffect } from 'react';
 import { Form, InputGroup, FormControl, Button } from 'react-bootstrap';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTrashCan, faPenToSquare } from '@fortawesome/free-regular-svg-icons';
-import { faCheck } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '/@fortawesome/react-fontawesome';
+import { faTrashCan, faPenToSquare } from '/@fortawesome/free-regular-svg-icons';
+import { faCheck } from '/@fortawesome/free-solid-svg-icons';
 
 function ToDoItem({ task, deleteTask, toggleCompleted, setUpdate }) {
     const [hovered, setHovered] = useState(false)
