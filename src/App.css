@@ -66,6 +66,7 @@ p {
 .text-logo {
     font-weight: 500;
 }
+
 .custom-dropdown .dropdown-toggle,
 .more-options-dropdown .dropdown-toggle {
     border: none;
@@ -84,6 +85,7 @@ p {
     border-color: transparent;
     border: none;
     outline: none;
+    color: #212529;
 }
 .more-options-dropdown .btn::after {
     display: none;

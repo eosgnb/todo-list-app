@@ -123,7 +123,7 @@ function ToDoPage() {
                         <div className="d-flex justify-content-center align-items-center">
                             <p className="me-2">Filter:</p>
                             <DropdownButton 
-                                className="me-3 custom-dropdown btn border-0 p-0" 
+                                className="custom-dropdown btn border p-0" 
                                 title={filter}
                                 data-bs-theme="light"
                                 variant="secondary"
@@ -136,7 +136,7 @@ function ToDoPage() {
                         
                         <DropdownButton
                             title={<FontAwesomeIcon icon={faEllipsis} />}
-                            className="more-options-dropdown btn border-0 p-0"
+                            className="ms-3 more-options-dropdown btn border-0 p-0"
                             data-bs-toggle="dropdown"
                         >
                             <Dropdown.Item onClick={deleteAllTasks}>
