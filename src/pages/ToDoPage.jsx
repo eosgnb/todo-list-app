@@ -168,7 +168,6 @@ function ToDoPage() {
                         <FontAwesomeIcon icon={faPlus} />
                     </Button>
                 </InputGroup>
-            
 
                 {/* To-do items */}
                 <Stack gap={2} className="pt-2">
