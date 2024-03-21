@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { Container, InputGroup, FormControl, Dropdown, DropdownButton, Stack, Button } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faList, faEllipsis, faPlus } from '@fortawesome/free-solid-svg-icons';
@@ -10,20 +10,19 @@ function ToDoPage() {
     const [text, setText] = useState('')
     const [filter, setFilter] = useState('All')
 
-    // console.log('Tasks: ', tasks)
-    // console.log('Text: ', text)
-    // console.log('Filter: ', filter)
+    const filteredTasks = useMemo(() => {
+        switch (filter) {
+            case 'Unchecked':
+                return tasks.filter(task => !task.completed)
+            case 'Completed':
+                return tasks.filter(task => task.completed)
+            default:
+                return tasks
+        }
+    }, [filter, tasks])
 
-    function getInitialTasks() {
-        const temp = localStorage.getItem('tasks')
-        const savedTasks = JSON.parse(temp)
-        return savedTasks || []
-    }
-
-    useEffect(() => {
-        const temp = JSON.stringify(tasks)
-        localStorage.setItem('tasks', temp)
-    }, [tasks])
+    const uncheckedTasksCount = useMemo(() => tasks.filter(task => !task.completed).length, [tasks])
+    const checkedTasksCount = useMemo(() => tasks.filter(task => task.completed).length, [tasks])
 
     const addTask = () => {
         if (text.trim() === '') {
@@ -34,7 +33,7 @@ function ToDoPage() {
             id: Date.now(),
             text: text,
             completed: false
-        }
+        };
         setTasks([...tasks, newTask])
         setText('')
     }
@@ -48,33 +47,27 @@ function ToDoPage() {
     }
 
     const deleteAllTasks = () => {
-        if (tasks.length > 0 && (window.confirm("Are you sure you want to delete all tasks?"))) {
+        if (tasks.length > 0 && window.confirm("Are you sure you want to delete all tasks?")) {
             setTasks([])
         }
     }
 
     const markAllDone = () => {
-        const updatedTasks = tasks.map(task => {
-            return { ...task, completed: true }
-        })
-
+        const updatedTasks = tasks.map(task => ({ ...task, completed: true }))
         setTasks(updatedTasks)
-    } 
+    }
 
     const uncheckAll = () => {
-        const updatedTasks = tasks.map(task => {
-            return { ...task, completed: false }
-        })
-
+        const updatedTasks = tasks.map(task => ({ ...task, completed: false }))
         setTasks(updatedTasks)
-    } 
+    }
 
     const toggleCompleted = (id) => {
         setTasks(tasks.map(task => {
             if (task.id === id) {
-                return { ...task, completed: !task.completed }
+                return { ...task, completed: !task.completed };
             } else {
-                return task
+                return task;
             }
         }))
     }
@@ -82,33 +75,30 @@ function ToDoPage() {
     const setUpdate = (updatedText, id) => {
         setTasks(tasks.map((task) => {
             if (task.id === id) {
-                task.text = updatedText
+                task.text = updatedText;
             }
             
-            return task
+            return task;
           }))
     }
 
-    const filterTasks = (filter) => {
+    const filterTasksHandler = (filter) => {
         setFilter(filter)
     }
 
-    const filteredTasks = () => {
-        switch (filter) {
-            case 'Unchecked':
-                return tasks.filter(task => !task.completed)
-            case 'Completed':
-                return tasks.filter(task => task.completed)
-            default:
-                return tasks
-        }
+    function getInitialTasks() {
+        const temp = localStorage.getItem('tasks')
+        const savedTasks = JSON.parse(temp)
+        return savedTasks || []
     }
 
-    const uncheckedTasks = filteredTasks().filter(task => !task.completed)
-    const checkedTasks = filteredTasks().filter(task => task.completed)
+    useEffect(() => {
+        const temp = JSON.stringify(tasks)
+        localStorage.setItem('tasks', temp)
+    }, [tasks])
 
     return (
-        <Container fluid className="todo--container vh-100 ps-lg-5 pe-lg-5 overflow-auto">
+        <Container fluid className="todo--container vh-100 ps-lg-5 pe-lg-5 pb-lg-5 overflow-auto">
             <Container className="todo--details ps-lg-5 pe-lg-5">
                 <div className='banner border p-4 d-flex justify-content-start align-items-center'>
                     <img src={logo} alt="Logo" width={45} height={45} className='me-2'/>
@@ -128,9 +118,9 @@ function ToDoPage() {
                                 data-bs-theme="light"
                                 variant="secondary"
                             >
-                                <Dropdown.Item onClick={() => filterTasks('All')}>All ({tasks.length})</Dropdown.Item>
-                                <Dropdown.Item onClick={() => filterTasks('Unchecked')}>Unchecked ({uncheckedTasks.length})</Dropdown.Item>
-                                <Dropdown.Item onClick={() => filterTasks('Completed')}>Completed ({checkedTasks.length})</Dropdown.Item>
+                                <Dropdown.Item onClick={() => filterTasksHandler('All')}>All ({tasks.length})</Dropdown.Item>
+                                <Dropdown.Item onClick={() => filterTasksHandler('Unchecked')}>Unchecked ({uncheckedTasksCount})</Dropdown.Item>
+                                <Dropdown.Item onClick={() => filterTasksHandler('Completed')}>Completed ({checkedTasksCount})</Dropdown.Item>
                             </DropdownButton>
                         </div>
                         
@@ -159,7 +149,7 @@ function ToDoPage() {
                         onChange={(e) => setText(e.target.value)}
                         onKeyDown={(event) => {
                             if (event.key === 'Enter') {
-                                addTask()
+                                addTask();
                             }
                         }}
                     />
@@ -170,7 +160,11 @@ function ToDoPage() {
 
                 {/* To-do items */}
                 <Stack gap={2} className="pt-2">
-                    {[...uncheckedTasks, ...checkedTasks].map(task => (
+                    {[...filteredTasks].sort((a, b) => {
+                        if (a.completed && !b.completed) return 1
+                        if (!a.completed && b.completed) return -1
+                        return 0
+                    }).map(task => (
                         <ToDoItem
                             key={task.id}
                             task={task}
@@ -182,7 +176,7 @@ function ToDoPage() {
                 </Stack>
             </Container>
         </Container>
-    );
+    )
 }
 
 export default ToDoPage
